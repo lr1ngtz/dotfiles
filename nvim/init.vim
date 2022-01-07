@@ -52,4 +52,3 @@ runtime ./maps.vim
 "}}}
 
 " vim: set foldmethod=marker foldlevel=0:
-

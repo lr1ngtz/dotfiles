@@ -8,3 +8,4 @@ nnoremap <C-q> :nohlsearch<CR>
 map gn :bn<cr>
 map gp :bp<cr>
 map gw :bd<cr>
+
