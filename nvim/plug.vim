@@ -12,8 +12,10 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Nvim tree 
-Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
+
+" Nvim icons
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
 
 " LSP config
 Plug 'neovim/nvim-lspconfig'
@@ -45,6 +47,9 @@ Plug 'terrortylor/nvim-comment'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+
+" Bufferline
+Plug 'akinsho/bufferline.nvim'
 
 call plug#end()
 

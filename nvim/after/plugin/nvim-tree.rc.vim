@@ -1,3 +1,5 @@
+let g:nvim_tree_quit_on_open = 1 
+
 let g:nvim_tree_icons = {
     \ 'default': '',
     \ 'symlink': '',
@@ -87,4 +89,6 @@ require'nvim-tree'.setup {
 }
 
 EOF
+
+nnoremap <C-n> :NvimTreeToggle<CR>
 
