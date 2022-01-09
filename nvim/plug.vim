@@ -11,7 +11,7 @@ Plug 'lewis6991/gitsigns.nvim'
 " Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-" Nvim tree (File explorer)
+" Nvim tree 
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
 
@@ -41,9 +41,10 @@ Plug 'nvim-lualine/lualine.nvim'
 " Comments
 Plug 'terrortylor/nvim-comment'
 
-" Need to config, have some issues
-" " LSPsaga
-" Plug 'glepnir/lspsaga.nvim'
+" Telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 call plug#end()
 
