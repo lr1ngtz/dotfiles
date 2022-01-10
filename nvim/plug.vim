@@ -1,5 +1,8 @@
 call plug#begin()
 
+" Toggleterm
+Plug 'akinsho/toggleterm.nvim'
+
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
