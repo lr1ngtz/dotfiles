@@ -63,6 +63,7 @@
 (setq select-enable-clipboard t)
 
 ;;; enable vertico, consult, orderless, and marginalia
+(require 'consult)
 (vertico-mode 1)
 (marginalia-mode 1)
 (setq completion-styles '(orderless basic)
@@ -80,10 +81,21 @@
 (require 'git-gutter)
 (global-git-gutter-mode t)
 (custom-set-variables
- `(git-gutter:update-interval 2)
- `(git-gutter:modified-sign "==")
- `(git-gutter:added-sign "++")
- `(git-gutter:deleted-sign "--"))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes '(gruvbox-dark-medium misterioso))
+ '(custom-safe-themes
+   '("5a0ddbd75929d24f5ef34944d78789c6c3421aa943c15218bac791c199fc897d"
+     default))
+ '(git-gutter:added-sign "++")
+ '(git-gutter:deleted-sign "--")
+ '(git-gutter:modified-sign "==")
+ '(git-gutter:update-interval 2)
+ '(package-selected-packages
+   '(consult git-gutter-fringe gruvbox-theme marginalia orderless pbcopy
+             vertico)))
 
 (global-set-key (kbd "C-c g h") 'git-gutter:popup-hunk)
 (global-set-key (kbd "C-c g n") 'git-gutter:next-hunk)
@@ -91,3 +103,26 @@
 
 ;;; vc-diff
 (global-set-key (kbd "C-c d") 'vc-diff)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(git-gutter:added ((t (:foreground "#b8bb26" :background "#32302f"))))
+ '(git-gutter:deleted ((t (:foreground "#fb4934" :background "#32302f"))))
+ '(git-gutter:modified ((t (:foreground "#fabd2f" :background "#32302f")))))
+
+
+;;; odin source code default ripgrep case-insensetive
+(require 'consult)
+
+(defun odin-source-search (search-term)
+  "Search for SEARCH-TERM in core, vendor, and base under ~/Odin using consult-ripgrep."
+  (interactive "sSearch term: ")
+  (let ((base-path (expand-file-name "~/Odin")))
+    (unless (file-directory-p base-path)
+      (error "Odin directory %s does not exist" base-path))
+    (consult-ripgrep base-path (concat search-term " -- core vendor base -i"))))
+
+;; bind to c-c o
+(global-set-key (kbd "C-c o") #'odin-source-search)

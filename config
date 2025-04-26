@@ -6,5 +6,8 @@ window-width = 130
 
 font-size = 18
 
-# theme = Terminal Basic
 theme = CLRS
+
+cursor-style-blink = false
+shell-integration-features = no-cursor
+cursor-color = 808080
