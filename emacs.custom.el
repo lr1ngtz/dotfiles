@@ -113,3 +113,20 @@
 
 ;; bind to c-c o
 (global-set-key (kbd "C-c o") #'odin-source-search)
+
+;; requires build directory in the root
+(defun run-odin-compile ()
+  "Run 'odin run .' using the compile interface in the current directory."
+  (interactive)
+  (let ((default-directory (file-name-directory (or (buffer-file-name) default-directory))))
+    (compile "odin run . -out:build/main")))
+
+;; requires build directory in the root
+(defun run-odin-debug-compile ()
+  "Run 'odin run .' using the compile interface in the current directory."
+  (interactive)
+  (let ((default-directory (file-name-directory (or (buffer-file-name) default-directory))))
+    (compile "odin run . -debug -out:build/main")))
+
+(global-set-key (kbd "C-c l") 'run-odin-compile)
+(global-set-key (kbd "C-c k") 'run-odin-debug-compile)
