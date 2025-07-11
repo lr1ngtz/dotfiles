@@ -6,7 +6,10 @@ window-width = 130
 
 font-size = 18
 
-theme = CLRS
+# theme = GruvboxDarkHard
+# theme = Alabaster
+# theme = gruvbox-material
+theme = catppuccin-latte
 
 cursor-style-blink = false
 shell-integration-features = no-cursor

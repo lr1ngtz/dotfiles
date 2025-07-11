@@ -8,10 +8,15 @@
 (setq-default standard-indent 4)
 
 ;;highlight trailing whitespace
+;; (global-whitespace-mode 1)
+;; (setq whitespace-style '(face trailing tabs spaces empty))
+;; (set-face-background 'whitespace-trailing "#cc0000") ; red background
+;; (set-face-foreground 'whitespace-trailing nil)
 (global-whitespace-mode 1)
-(setq whitespace-style '(face trailing tabs spaces empty))
+(setq whitespace-style '(face trailing))
 (set-face-background 'whitespace-trailing "#cc0000") ; red background
 (set-face-foreground 'whitespace-trailing nil)
+
 
 ;; enable c-x c-l to downcase selected region
 (put 'downcase-region 'disabled nil)
@@ -27,7 +32,7 @@
 (global-set-key (kbd "C-x ;") 'comment-line)
 
 ;;; load gruvbox-theme
-(require 'gruvbox-theme)
+;; (require 'gruvbox-theme)
 
 ;; ensure emacs can find executables installed by homebrew on intel macs
 (add-to-list 'exec-path "/usr/local/bin")
@@ -112,7 +117,6 @@
     (unless (file-directory-p base-path)
       (error "Odin directory %s does not exist" base-path))
     (consult-ripgrep base-path (concat search-term " -- core vendor base -i"))))
-
 ;; bind to c-c o
 (global-set-key (kbd "C-c o") #'odin-source-search)
 
@@ -152,3 +156,21 @@
                              default-directory)))
     (compile "odin build . -debug -out:build/main")))
 (global-set-key (kbd "C-c C-b") 'build-odin-debug-compile)
+
+
+;; Enable eglot for go-mode
+(require 'eglot)
+(add-hook 'go-mode-hook 'eglot-ensure)
+(add-to-list 'eglot-server-programs '(go-mode . ("gopls")))
+
+;; Optional: Enable eldoc for hover documentation
+(add-hook 'go-mode-hook 'eldoc-mode)
+
+(global-set-key (kbd "C-c h") 'eldoc)
+
+
+;; catppuccin theme
+(setq catppuccin-flavor 'latte) ; or 'latte, 'macchiato, or 'mocha
+(load-theme 'catppuccin t)
+(add-hook 'server-after-make-frame-hook #'catppuccin-reload) ; emacsclient
+
