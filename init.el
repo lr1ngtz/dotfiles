@@ -159,18 +159,19 @@
 
 
 ;; Enable eglot for go-mode
-(require 'eglot)
-(add-hook 'go-mode-hook 'eglot-ensure)
-(add-to-list 'eglot-server-programs '(go-mode . ("gopls")))
+;; (require 'eglot)
+;; (add-hook 'go-mode-hook 'eglot-ensure)
+;; (add-to-list 'eglot-server-programs '(go-mode . ("gopls")))
 
-;; Optional: Enable eldoc for hover documentation
-(add-hook 'go-mode-hook 'eldoc-mode)
+;; ;; Optional: Enable eldoc for hover documentation
+;; (add-hook 'go-mode-hook 'eldoc-mode)
 
 (global-set-key (kbd "C-c h") 'eldoc)
 
 
 ;; catppuccin theme
-(setq catppuccin-flavor 'latte) ; or 'latte, 'macchiato, or 'mocha
+;; (setq catppuccin-flavor 'latte) ; or 'latte, 'macchiato, or 'mocha
+(setq catppuccin-flavor 'mocha) ; or 'latte, 'macchiato, or 'mocha
 (load-theme 'catppuccin t)
 (add-hook 'server-after-make-frame-hook #'catppuccin-reload) ; emacsclient
 

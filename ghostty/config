@@ -9,7 +9,8 @@ font-size = 18
 # theme = GruvboxDarkHard
 # theme = Alabaster
 # theme = gruvbox-material
-theme = catppuccin-latte
+# theme = catppuccin-latte
+theme = catppuccin-mocha
 
 cursor-style-blink = false
 shell-integration-features = no-cursor
