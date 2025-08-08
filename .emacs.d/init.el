@@ -38,16 +38,25 @@
 ;; and `package-pinned-packages`. most users will not need or want to do this.
 ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(require 'use-package)
+(setq use-package-always-ensure t)
 
 ;;; load lisp
 ;; custom lisp directory to load path
 (add-to-list 'load-path(expand-file-name "~/.emacs.d/lisp"))
 
 ;; odin syntax highlighting
-(load "odin-mode")
+;; (load "odin-mode")
+(use-package odin-mode
+  :load-path "~/.emacs.d/lisp"
+  :mode "\\.odin\\'"
+  :defer t)
 
 ;; display line numbers in every buffer
-(global-display-line-numbers-mode)
+;; (global-display-line-numbers-mode)
 
 ;; create backup directory if it doesn't exist
 (make-directory "~/.emacs.d/backup" t)
@@ -67,24 +76,49 @@
                 (file-name-nondirectory filename))))
 
 ;; enable pbcopy
-(require 'pbcopy)
-(turn-on-pbcopy) ; integrate with system clipboard
-(setq select-enable-clipboard t)
+(use-package pbcopy
+  :init
+  (turn-on-pbcopy)  ; integrate with system clipboard
+  (setq select-enable-clipboard t)
+  :defer t)
+
 
 ;;; enable vertico, consult, orderless, and marginalia
-(require 'consult)
-(vertico-mode 1)
-(marginalia-mode 1)
-(setq completion-styles '(orderless basic)
-      completion-category-defaults nil
-      completion-category-overrides '((file (styles partial-completion))))
+(use-package vertico
+  :init
+  (vertico-mode 1)
+  :defer t)
+
+(use-package consult
+  :bind (("M-g g" . consult-goto-line)
+         ("C-c f" . consult-fd)
+         ("C-c r" . consult-ripgrep)
+         ("C-c o" . odin-source-search))
+  :config
+  (defun odin-source-search (search-term) ;;; odin source code default ripgrep case-insensetive
+    "Search for SEARCH-TERM in core, vendor, and base under ~/Odin using consult-ripgrep."
+    (interactive "sSearch term: ")
+    (let ((base-path (expand-file-name "~/Odin")))
+      (unless (file-directory-p base-path)
+        (error "Odin directory %s does not exist" base-path))
+      (consult-ripgrep base-path (concat search-term " -- core vendor base -i"))))
+  :defer t)
+
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion))))
+  :defer t)
+
+(use-package marginalia
+  :init
+  (marginalia-mode 1)
+  :defer t)
+
 
 ;; config  project.el to ignore __pycache__
 (setq project-vc-ignores '("*/__pycache__/*"))
-
-(global-set-key (kbd "M-g g") 'consult-goto-line)
-(global-set-key (kbd "C-c f") 'consult-fd)
-(global-set-key (kbd "C-c r") 'consult-ripgrep)
 
 ;;; vc-diff
 (global-set-key (kbd "C-c d") 'vc-diff)
@@ -92,17 +126,6 @@
 ;;; compile
 (global-set-key (kbd "C-c c") 'compile)
 
-;;; odin source code default ripgrep case-insensetive
-(require 'consult)
-(defun odin-source-search (search-term)
-  "Search for SEARCH-TERM in core, vendor, and base under ~/Odin using consult-ripgrep."
-  (interactive "sSearch term: ")
-  (let ((base-path (expand-file-name "~/Odin")))
-    (unless (file-directory-p base-path)
-      (error "Odin directory %s does not exist" base-path))
-    (consult-ripgrep base-path (concat search-term " -- core vendor base -i"))))
-;; bind to c-c o
-(global-set-key (kbd "C-c o") #'odin-source-search)
 
 ;; requires build directory and project.el file in the root of the project
 (defun run-odin-compile ()
@@ -155,4 +178,4 @@
 (add-hook 'emacs-startup-hook 'my/switch-theme-by-time)
 
 ;; Periodically check the time and switch theme if needed
-(run-at-time "0 sec" 1800 'my/switch-theme-by-time)
+(run-at-time "0 sec" 7200 'my/switch-theme-by-time)
