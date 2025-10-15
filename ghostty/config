@@ -1,12 +1,13 @@
 # ghostty config
-macos-option-as-alt = left
+macos-option-as-alt = true
 
-window-height = 36
-window-width = 130
+# window-height = 36
+# window-width = 130
 
 font-size = 18
+# font-family = Menlo
 
-theme = GruvboxDarkHard
+theme = Gruvbox Dark
 # theme = GruvboxLight
 # theme = Alabaster
 # theme = gruvbox-material
@@ -15,4 +16,4 @@ theme = GruvboxDarkHard
 
 cursor-style-blink = false
 shell-integration-features = no-cursor
-cursor-color = 808080
+# cursor-color = 808080
