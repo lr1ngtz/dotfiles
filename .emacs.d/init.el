@@ -5,14 +5,9 @@
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes '(gruvbox-dark-medium))
  '(custom-safe-themes
-   '("09276f492e8e604d9a0821ef82f27ce58b831f90f49f986b4d93a006c12dbcdb"
-     "75b371fce3c9e6b1482ba10c883e2fb813f2cc1c88be0b8a1099773eb78a7176"
-     "18a1d83b4e16993189749494d75e6adb0e15452c80c431aca4a867bcc8890ca9"
+   '("5a0ddbd75929d24f5ef34944d78789c6c3421aa943c15218bac791c199fc897d"
      "51fa6edfd6c8a4defc2681e4c438caf24908854c12ea12a1fbfd4d055a9647a3"
-     "8363207a952efb78e917230f5a4d3326b2916c63237c1f61d7e5fe07def8d378"
-     "5a0ddbd75929d24f5ef34944d78789c6c3421aa943c15218bac791c199fc897d"
-     "276228257774fa4811da55346b1e34130edb068898565ca07c2d83cfb67eb70a"
-     default))
+     "" default))
  '(package-selected-packages
    '(consult go-mode gruvbox-theme marginalia orderless pbcopy vertico)))
 (custom-set-faces
@@ -29,7 +24,7 @@
 ;; indenting
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(setq-default standard-indent 4)
+(setq c-basic-offset 4)
 
 ;;highlight trailing whitespace
 (global-whitespace-mode 1)
@@ -121,8 +116,9 @@
 (use-package consult
   :bind (("M-g g" . consult-goto-line)
          ("C-c f" . consult-find)
-         ;; ("C-c r" . consult-ripgrep)
-         ("C-c r" . consult-grep)))
+         ("C-c r" . consult-ripgrep)
+         ("C-c o" . consult-flymake)))
+         ;; ("C-c r" . consult-grep)))
 
 (use-package orderless
   :init
@@ -135,19 +131,15 @@
   (marginalia-mode 1))
 ;;; consult group ################################################################
 
+(use-package eglot
+  :ensure t
+  :config
+  (add-to-list 'eglot-server-programs
+               '((go-mode go-ts-mode) "gopls"))
+  (add-to-list 'eglot-server-programs
+               '((python-mode python-ts-mode)
+                 "basedpyright-langserver" "--stdio"))
 
-;; (defun my/switch-theme-by-time ()
-;;   "switch emacs theme based on the current time."
-;;   (let ((hour (string-to-number (format-time-string "%H"))))
-;;     (if (or (>= hour 19) (< hour 7))
-;;         ;; nighttime (7 pm to 7 am): load dark theme
-;;         (load-theme 'gruvbox-dark-medium t)
-;;       ;; daytime (7 am to 7 pm): load light theme
-;;       (load-theme 'gruvbox-light-soft t))))
-
-;; ;; run the theme switcher when emacs starts
-;; (add-hook 'emacs-startup-hook 'my/switch-theme-by-time)
-
-;; ;; Periodically check the time and switch theme if needed
-;; (run-at-time "0 sec" 7200 'my/switch-theme-by-time)
-
+  ;; Auto-enable eglot
+  (add-hook 'go-mode-hook 'eglot-ensure)
+  (add-hook 'python-mode-hook 'eglot-ensure))
