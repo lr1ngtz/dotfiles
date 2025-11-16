@@ -9,7 +9,8 @@
      "51fa6edfd6c8a4defc2681e4c438caf24908854c12ea12a1fbfd4d055a9647a3"
      "" default))
  '(package-selected-packages
-   '(consult go-mode gruvbox-theme marginalia magit orderless pbcopy vertico)))
+   '(consult dumb-jump go-mode gruvbox-theme magit marginalia orderless
+             pbcopy vertico)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -133,3 +134,30 @@
   :init
   (marginalia-mode 1))
 ;;; consult group ################################################################
+
+
+;;; dumb jump
+;;; create .dumbjup file in order to search for symbols
+;;; for instance
+;;; .dumbjump content
+;;;# Odin global libraries
+;;;+ ${HOME}/Odin/core
+;;;+ ${HOME}/Odin/base
+;;;+ ${HOME}/Odin/vendor
+(use-package dumb-jump
+  :ensure t
+  :custom
+  (dumb-jump-force-searcher 'rg)
+  (dumb-jump-prefer-searcher 'rg)
+
+  (dumb-jump-selector 'consult)
+  (xref-show-xrefs-function #'consult-xref)
+  (xref-show-definitions-function #'consult-xref)
+
+  :config
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
+
+(global-set-key (kbd "M-.") 'xref-find-definitions)
+(global-set-key (kbd "M-?") 'xref-find-references)
+(global-set-key (kbd "M-,") 'xref-pop-marker-stack)
+;;; dumb jump
