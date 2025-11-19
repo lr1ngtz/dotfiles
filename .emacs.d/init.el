@@ -26,6 +26,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (blink-cursor-mode 0)
+(setq blink-cursor-blinks 0)
+
 (setq scroll-margin 5)
 ;; indenting
 (setq-default indent-tabs-mode nil)
@@ -43,11 +45,20 @@
 ;; enable c-x c-u to upcase selected region
 (put 'upcase-region 'disabled nil)
 
+;; surround selection with " … "
+(global-set-key (kbd "C-c \"") (lambda () (interactive) (insert-pair 1 ?\" ?\")))
+;; surround selection with [ … ]
+(global-set-key (kbd "C-c [") (lambda () (interactive) (insert-pair 1 ?\[ ?\])))
+;; surround selection with { … }
+(global-set-key (kbd "C-c {") (lambda () (interactive) (insert-pair 1 ?{ ?})))
+
 ;; don't show the splash screen
 (setq inhibit-startup-message t)
-(setq-default menu-bar-mode nil)
+(menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+;;; fix bug with menu bar mode with terminal emacs
+(add-hook 'after-make-frame-functions (lambda (_) (menu-bar-mode -1)))
 
 ;; font size for GUI mode
 (set-face-attribute 'default nil :height 170)
@@ -156,7 +167,6 @@
 ;;;+ ${HOME}/Odin/base
 ;;;+ ${HOME}/Odin/vendor
 (use-package dumb-jump
-  :ensure t
   :custom
   (dumb-jump-force-searcher 'rg)
   (dumb-jump-prefer-searcher 'rg)
@@ -170,5 +180,11 @@
 
 (global-set-key (kbd "M-.") 'xref-find-definitions)
 (global-set-key (kbd "M-?") 'xref-find-references)
-(global-set-key (kbd "M-,") 'xref-pop-marker-stack)
+(global-set-key (kbd "M-,") 'xref-go-back)
 ;;; dumb jump
+
+
+(use-package magit)
+(use-package gruvbox-theme
+  :config
+  (load-theme 'gruvbox-dark-medium t))
