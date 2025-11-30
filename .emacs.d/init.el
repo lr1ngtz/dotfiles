@@ -13,8 +13,8 @@
      "51fa6edfd6c8a4defc2681e4c438caf24908854c12ea12a1fbfd4d055a9647a3"
      "" default))
  '(package-selected-packages
-   '(consult dumb-jump gruvbox-theme magit marginalia markdown-mode
-             orderless pbcopy vertico)))
+   '(consult dumb-jump go-mode gruvbox-theme magit marginalia
+             markdown-mode orderless pbcopy vertico)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -58,7 +58,7 @@
 (add-hook 'after-make-frame-functions (lambda (_) (menu-bar-mode -1)))
 
 ;; font size for GUI mode
-(set-face-attribute 'default nil :height 170)
+(set-face-attribute 'default nil :height 160)
 
 ;; makes sure the contents of the buffer is refreshed automatically when the file is changed outside of emacs
 (global-auto-revert-mode t)
@@ -137,7 +137,7 @@
   :bind (("M-g g" . consult-goto-line)
          ("C-c f" . consult-find)
          ("C-c p s" . consult-ripgrep)
-
+         ("C-c o" . consult-flymake)
          ("C-r" . consult-line)
          ("C-x b" . consult-buffer)
          ("M-g m" . consult-imenu)
@@ -201,3 +201,6 @@
   (setq markdown-fontify-code-blocks-natively t)
   (setq markdown-enable-math t)      ;; LaTeX math support
   (add-hook 'markdown-mode-hook #'visual-line-mode))
+
+
+(use-package go-mode)
