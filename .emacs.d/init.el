@@ -14,7 +14,7 @@
      "" default))
  '(package-selected-packages
    '(consult dumb-jump go-mode gruvbox-theme magit marginalia
-             markdown-mode orderless pbcopy vertico)))
+             markdown-mode multiple-cursors orderless pbcopy vertico)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -126,7 +126,7 @@
 (global-set-key (kbd "C-c r") 'recompile)
 
 ;;; duplicate line
-(global-set-key (kbd "C-c d") 'duplicate-line)
+;; (global-set-key (kbd "C-c d") 'duplicate-line)
 
 ;;; consult group ################################################################
 (use-package vertico
@@ -194,13 +194,31 @@
   :mode (("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init
-  (setq markdown-command "pandoc")   ;; optional but recommended
+  (setq markdown-command "pandoc")
 
   :config
-  ;; Optional nice settings most people like
   (setq markdown-fontify-code-blocks-natively t)
-  (setq markdown-enable-math t)      ;; LaTeX math support
   (add-hook 'markdown-mode-hook #'visual-line-mode))
 
 
 (use-package go-mode)
+
+;;; multiple cursors
+(require 'multiple-cursors)
+
+(if (eq system-type 'darwin)
+    (progn
+      (global-set-key (kbd "s-d") 'mc/mark-next-like-this)
+      (global-set-key (kbd "s-D") 'mc/mark-previous-like-this)
+      (global-set-key (kbd "s-l") 'mc/mark-all-like-this)
+      (global-set-key (kbd "s-<return>") 'mc/edit-lines)
+      (global-set-key (kbd "s-<mouse-1>") 'mc/add-cursor-on-click)
+      (setq mc/always-run-for-all t))
+
+  (progn
+    (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+    (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+    (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+    (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+    (setq mc/always-run-for-all t)))
+;;; multiple cursors
