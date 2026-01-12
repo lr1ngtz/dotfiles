@@ -8,7 +8,9 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="robbyrussell"
+# ZSH_THEME="amuse"
+ZSH_THEME="fino"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -122,11 +124,15 @@ eval "$(pyenv init - zsh)"
 # Odin lang
 export PATH="$HOME/Odin:$PATH"
 export ODIN_ROOT="$HOME/Odin"
+export PATH="$HOME/ols:$PATH"
+
+# jai
+alias jai="$HOME/jai/bin/jai-macos"
 
 
 # emacs
-alias ec="emacsclient -c"
-alias et="emacsclient -t"
+alias ec="emacsclient -c -n -a ''"
+alias et="emacsclient -t -a ''"
 export EDITOR="emacsclient -t"
 export CODEEDITOR="emacsclient -c -a 'emacs'"
 export VISUAL="emacsclient -c -a 'emacs'"
@@ -138,3 +144,6 @@ source <(fzf --zsh)
 # postgres
 export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 
+# golang
+export GOPATH=$HOME/go
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
