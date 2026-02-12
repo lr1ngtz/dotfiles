@@ -13,8 +13,9 @@
      "51fa6edfd6c8a4defc2681e4c438caf24908854c12ea12a1fbfd4d055a9647a3"
      "" default))
  '(package-selected-packages
-   '(consult dumb-jump go-mode gruvbox-theme magit marginalia
-             markdown-mode multiple-cursors orderless pbcopy vertico)))
+   '(consult dumb-jump flycheck go-mode gruvbox-theme magit marginalia
+             markdown-mode multiple-cursors orderless pbcopy
+             typescript-mode vertico)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -63,7 +64,7 @@
 ;; makes sure the contents of the buffer is refreshed automatically when the file is changed outside of emacs
 (global-auto-revert-mode t)
 ;; select scope
-(global-set-key (kbd "C-c s") 'mark-sexp)
+;; (global-set-key (kbd "C-c s") 'mark-sexp)
 (global-set-key (kbd "C-x ;") 'comment-line)
 
 ;; melpa
@@ -125,8 +126,6 @@
 (global-set-key (kbd "C-c c") 'compile)
 (global-set-key (kbd "C-c r") 'recompile)
 
-;;; duplicate line
-;; (global-set-key (kbd "C-c d") 'duplicate-line)
 
 ;;; consult group ################################################################
 (use-package vertico
@@ -159,7 +158,7 @@
 
 
 ;;; dumb jump
-;;; create .dumbjup file in order to search for symbols
+;;; create .dumbjump file in order to search for symbols
 ;;; for instance
 ;;; .dumbjump content
 ;;;# Odin global libraries
@@ -200,8 +199,13 @@
   (setq markdown-fontify-code-blocks-natively t)
   (add-hook 'markdown-mode-hook #'visual-line-mode))
 
+;;; golang
+(use-package go-mode
+  :hook (before-save . gofmt-before-save))
 
-(use-package go-mode)
+(use-package flycheck
+  :hook (go-mode . flycheck-mode))
+;;; golang
 
 ;;; multiple cursors
 (require 'multiple-cursors)
