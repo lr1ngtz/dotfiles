@@ -13,9 +13,9 @@
      "51fa6edfd6c8a4defc2681e4c438caf24908854c12ea12a1fbfd4d055a9647a3"
      "" default))
  '(package-selected-packages
-   '(consult dumb-jump flycheck go-mode gruvbox-theme magit marginalia
-             markdown-mode multiple-cursors orderless pbcopy
-             typescript-mode vertico)))
+   '(company consult dumb-jump flycheck go-mode gruvbox-theme magit
+             marginalia markdown-mode multiple-cursors orderless
+             pbcopy tmpl-mode typescript-mode vertico)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -208,21 +208,27 @@
 ;;; golang
 
 ;;; multiple cursors
-(require 'multiple-cursors)
-
-(if (eq system-type 'darwin)
+(use-package multiple-cursors
+  :config
+  (setq mc/always-run-for-all t)
+  (if (eq system-type 'darwin)
+      (progn
+        (global-set-key (kbd "s-d") 'mc/mark-next-like-this)
+        (global-set-key (kbd "s-D") 'mc/mark-previous-like-this)
+        (global-set-key (kbd "s-l") 'mc/mark-all-like-this)
+        (global-set-key (kbd "s-<return>") 'mc/edit-lines)
+        (global-set-key (kbd "s-<mouse-1>") 'mc/add-cursor-on-click))
     (progn
-      (global-set-key (kbd "s-d") 'mc/mark-next-like-this)
-      (global-set-key (kbd "s-D") 'mc/mark-previous-like-this)
-      (global-set-key (kbd "s-l") 'mc/mark-all-like-this)
-      (global-set-key (kbd "s-<return>") 'mc/edit-lines)
-      (global-set-key (kbd "s-<mouse-1>") 'mc/add-cursor-on-click)
-      (setq mc/always-run-for-all t))
-
-  (progn
-    (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-    (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-    (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-    (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-    (setq mc/always-run-for-all t)))
+      (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+      (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+      (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+      (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines))))
 ;;; multiple cursors
+
+
+(use-package company
+  :hook (after-init . global-company-mode)
+  :config
+  (setq company-idle-delay nil
+        company-minimum-prefix-length 1)
+  :bind (("C-x j" . company-complete)))
