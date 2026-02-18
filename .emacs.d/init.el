@@ -3,26 +3,23 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(gruvbox-dark-medium))
+ '(custom-enabled-themes '(sketch-black))
  '(custom-safe-themes
-   '("e887d0a0f9f59f213d2a8e1069fcb0ad85e95f7a8ad0a8b2bfc2f7359c488c82"
-     "fff0dc54ff5a194ba6593d1cce0fbb4fe8cf9da59fcef47f9e06dec6ef11b1fa"
-     "6dcf1ca4c7432773084b9d52649ee5eb2c663131c4c06859f648dea98d9acb3e"
-     "7e98dc1aa7f5db0557691da690c38d55e83ddd33c6d268205d66e430d57fb982"
-     "5a0ddbd75929d24f5ef34944d78789c6c3421aa943c15218bac791c199fc897d"
-     "51fa6edfd6c8a4defc2681e4c438caf24908854c12ea12a1fbfd4d055a9647a3"
+   '("fef1ae76cbc3d5fe957160406cf034e5a352037eb5a7ace339fcddc26ada5f9f"
+     "0007e247ab8b2a2dcead2e06043649fdc34a97f1caa4a4167a5dc35ac7469fbf"
+     "979525ee3cdbe0d4ceab63147ec710be4cbdac0e66aae9d280c05bcbff89b15d"
+     "83a14237576924321c9b6855bd3e9b6f96d12446c0cec7b58b22775df6d4f3fe"
      "" default))
  '(package-selected-packages
    '(company consult dumb-jump flycheck go-mode gruvbox-theme magit
              marginalia markdown-mode multiple-cursors orderless
-             pbcopy tmpl-mode typescript-mode vertico)))
+             pbcopy sketch-themes tmpl-mode typescript-mode vertico)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -83,6 +80,8 @@
 ;;; load lisp
 ;; custom lisp directory to load path
 (add-to-list 'load-path(expand-file-name "~/.emacs.d/lisp"))
+;;; sketch-theme
+(add-to-list 'custom-theme-load-path "~/.emacs.d/lisp/themes")
 
 ;; odin syntax highlighting
 ;; (load "odin-mode")
@@ -182,11 +181,11 @@
 (global-set-key (kbd "M-,") 'xref-go-back)
 ;;; dumb jump
 
-
 (use-package magit)
-(use-package gruvbox-theme
-  :config
-  (load-theme 'gruvbox-dark-medium t))
+
+;; (use-package gruvbox-theme
+;;   :config
+;;   (load-theme 'gruvbox-dark-medium t))
 
 
 (use-package markdown-mode
@@ -224,11 +223,3 @@
       (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
       (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines))))
 ;;; multiple cursors
-
-
-(use-package company
-  :hook (after-init . global-company-mode)
-  :config
-  (setq company-idle-delay nil
-        company-minimum-prefix-length 1)
-  :bind (("C-x j" . company-complete)))
