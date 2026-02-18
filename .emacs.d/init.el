@@ -223,3 +223,11 @@
       (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
       (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines))))
 ;;; multiple cursors
+
+
+(use-package company
+  :hook (after-init . global-company-mode)
+  :config
+  (setq company-idle-delay nil
+        company-minimum-prefix-length 1)
+  :bind (("C-x j" . company-complete)))
