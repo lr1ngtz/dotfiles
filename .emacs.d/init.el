@@ -5,15 +5,19 @@
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes '(sketch-black))
  '(custom-safe-themes
-   '("fef1ae76cbc3d5fe957160406cf034e5a352037eb5a7ace339fcddc26ada5f9f"
+   '("d002066fd00de31060aa8fdce7f38b181b9b1b0a41dcb0069ccab3dc1ff5d157"
+     "b1cb7aeccbefaea58b7979562c727855771f2530a776be5d02b80ebdfcda12e6"
+     "5a0ddbd75929d24f5ef34944d78789c6c3421aa943c15218bac791c199fc897d"
+     "019184a760d9747744783826fcdb1572f9efefc5c19ed43b6243e66638fb9960"
+     "8f5b54bf6a36fe1c138219960dd324aad8ab1f62f543bed73ef5ad60956e36ae"
      "0007e247ab8b2a2dcead2e06043649fdc34a97f1caa4a4167a5dc35ac7469fbf"
-     "979525ee3cdbe0d4ceab63147ec710be4cbdac0e66aae9d280c05bcbff89b15d"
      "83a14237576924321c9b6855bd3e9b6f96d12446c0cec7b58b22775df6d4f3fe"
      "" default))
  '(package-selected-packages
-   '(company consult dumb-jump flycheck go-mode gruvbox-theme magit
-             marginalia markdown-mode multiple-cursors orderless
-             pbcopy sketch-themes tmpl-mode typescript-mode vertico)))
+   '(company consult consult-flycheck dumb-jump flycheck go-mode
+             gruvbox-theme magit marginalia markdown-mode
+             multiple-cursors orderless pbcopy sketch-themes tmpl-mode
+             typescript-mode vertico)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -22,18 +26,16 @@
  )
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq scroll-margin 5)
 ;; indenting
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(setq c-basic-offset 4)
 
 ;;highlight trailing whitespace
 (global-whitespace-mode 1)
 (setq whitespace-style '(face trailing))
 (set-face-background 'whitespace-trailing "#cc0000") ; red background
-(set-face-foreground 'whitespace-trailing nil)
+
 
 ;; enable c-x c-l to downcase selected region
 (put 'downcase-region 'disabled nil)
@@ -78,10 +80,7 @@
 (setq use-package-always-ensure t)
 
 ;;; load lisp
-;; custom lisp directory to load path
 (add-to-list 'load-path(expand-file-name "~/.emacs.d/lisp"))
-;;; sketch-theme
-(add-to-list 'custom-theme-load-path "~/.emacs.d/lisp/themes")
 
 ;; odin syntax highlighting
 ;; (load "odin-mode")
@@ -135,7 +134,7 @@
   :bind (("M-g g" . consult-goto-line)
          ("C-c f" . consult-find)
          ("C-c p s" . consult-ripgrep)
-         ("C-c o" . consult-flymake)
+         ("C-c o" . consult-flycheck)
          ("C-r" . consult-line)
          ("C-x b" . consult-buffer)
          ("M-g m" . consult-imenu)
@@ -203,7 +202,8 @@
   :hook (before-save . gofmt-before-save))
 
 (use-package flycheck
-  :hook (go-mode . flycheck-mode))
+  :ensure t
+  :init (global-flycheck-mode))
 ;;; golang
 
 ;;; multiple cursors
@@ -231,3 +231,11 @@
   (setq company-idle-delay nil
         company-minimum-prefix-length 1)
   :bind (("C-x j" . company-complete)))
+
+
+(use-package sketch-themes
+  :config
+  ;; Load black version
+  (load-theme 'sketch-black t))
+  ;; Load white version
+;; (load-theme 'sketch-white t))
