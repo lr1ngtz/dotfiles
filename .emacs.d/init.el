@@ -3,9 +3,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(sketch-black))
+ '(custom-enabled-themes '(doric-obsidian))
  '(custom-safe-themes
-   '("d002066fd00de31060aa8fdce7f38b181b9b1b0a41dcb0069ccab3dc1ff5d157"
+   '("d422edfdab7b5f84fb305732eaa36963b890acbd5cc88233309c042b8e967197"
+     "9819b94dc38ee935362d4bf1c1198ebb8ebeabb5e8c85a78436565720d91c0d7"
+     "2505c0699e53e5ff10708b6d86f2224abd79357b27de79136605b450a1785585"
+     "106fadeab4fb8cf50eeae1e1fd051ae00d0e71a40b5b0f0f5b9db85015398a61"
+     "b3440bf57d65eeb0cce0c45f91a14b336fe5d2d33d15782c701fa092fa34bf59"
+     "366f7fb70999d739ff559568b011f8cfb05c88124e4c944e5e1008312e572137"
+     "4bc34187baf114f1f3de085ffe9510b3c43fe505d21bd52d75bd5aade8c7839e"
+     "acfe7ff6aacb9432f124cde4e35d6d2b4bc52916411de73a6ccded9750c9fa97"
+     "b8bd60a23b9e2f08b0c437231ee84f2dacc70fdc4d5a0fb87229bb9926273fdd"
+     "d002066fd00de31060aa8fdce7f38b181b9b1b0a41dcb0069ccab3dc1ff5d157"
      "b1cb7aeccbefaea58b7979562c727855771f2530a776be5d02b80ebdfcda12e6"
      "5a0ddbd75929d24f5ef34944d78789c6c3421aa943c15218bac791c199fc897d"
      "019184a760d9747744783826fcdb1572f9efefc5c19ed43b6243e66638fb9960"
@@ -14,8 +23,8 @@
      "83a14237576924321c9b6855bd3e9b6f96d12446c0cec7b58b22775df6d4f3fe"
      "" default))
  '(package-selected-packages
-   '(company consult consult-flycheck dumb-jump flycheck go-mode
-             gruvbox-theme magit marginalia markdown-mode
+   '(company consult consult-flycheck doric-themes dumb-jump flycheck
+             go-mode gruvbox-theme magit marginalia markdown-mode
              multiple-cursors orderless pbcopy sketch-themes tmpl-mode
              typescript-mode vertico)))
 (custom-set-faces
@@ -204,6 +213,9 @@
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode))
+
+(use-package tmpl-mode
+  :mode "\\.tmpl\\'")
 ;;; golang
 
 ;;; multiple cursors
@@ -233,9 +245,9 @@
   :bind (("C-x j" . company-complete)))
 
 
-(use-package sketch-themes
-  :config
-  ;; Load black version
-  (load-theme 'sketch-black t))
-  ;; Load white version
-;; (load-theme 'sketch-white t))
+;; (use-package sketch-themes
+;;   :config
+;;   ;; Load black version
+;;   (load-theme 'sketch-black t))
+;;   ;; Load white version
+;; ;; (load-theme 'sketch-white t))
