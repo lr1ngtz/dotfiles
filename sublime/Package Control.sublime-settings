@@ -2,7 +2,7 @@
 	"bootstrapped": true,
 	"installed_packages":
 	[
-		"Alabaster Color Scheme",
+		"GitSavvy",
 		"LSP",
 		"LSP-clangd",
 		"LSP-ruff",

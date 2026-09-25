@@ -10,9 +10,10 @@
     "save_on_focus_lost": true,
     "scroll_past_end": true,
     "ensure_newline_at_eof_on_save": true,
-    "color_scheme": "Base16 Oceanic.sublime-color-scheme",
+    "color_scheme": "Mariana.sublime-color-scheme",
     "spell_check": false,
-    "dark_color_scheme": "Alabaster Dark.sublime-color-scheme",
-    "light_color_scheme": "Alabaster.sublime-color-scheme",
+    "dark_color_scheme": "Mariana.sublime-color-scheme",
+    "light_color_scheme": "Breakers.sublime-color-scheme",
     "line_numbers": true,
+    "update_check": true,
 }
